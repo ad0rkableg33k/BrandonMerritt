@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Brandon Merritt</title>
+<meta name="description" content="Booking and contact for Brandon Merritt.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-mark">Brandon Merritt</a>
+  <button class="nav-toggle" aria-label="Toggle menu">Menu</button>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="music.html">Music</a>
+    <a href="trilogy.html">Trilogy</a>
+    <a href="videos.html">Videos</a>
+    <a href="merch.html">Merch</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="active">Contact</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="eyebrow">Get In Touch</div>
+  <h1>Contact</h1>
+  <p>For booking, press, or anything else — reach out directly or use the form below.</p>
+</div>
+
+<section style="padding-top:0;">
+  <div class="grid grid-2">
+    <div class="reveal">
+      <span class="mono-tag">Booking</span>
+      <p style="margin-top:8px;"><a href="mailto:info.valencerecords@gmail.com" style="color:var(--gold);">info.valencerecords@gmail.com</a></p>
+
+      <span class="mono-tag" style="display:block; margin-top:32px;">General</span>
+      <p style="margin-top:8px;"><a href="mailto:iambrandonmerritt@gmail.com" style="color:var(--gold);">iambrandonmerritt@gmail.com</a></p>
+
+      <span class="mono-tag" style="display:block; margin-top:32px;">Follow</span>
+      <p style="margin-top:8px;"><a href="https://instagram.com/iambrandonmerritt" target="_blank" rel="noopener" style="color:var(--gold);">@iambrandonMerritt</a></p>
+    </div>
+
+    <!--
+      Swap-in note: this is a static site (GitHub Pages), so the form needs a
+      form-handling service to actually deliver submissions. Free options that
+      need zero server maintenance: Formspree (formspree.io) or Getform.io —
+      sign up, drop the endpoint they give you into the action="" below, done.
+      Until that's wired up, this form won't send anywhere.
+    -->
+    <form class="reveal" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID" method="POST">
+      <div class="form-row">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-row">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-row">
+        <label for="reason">Reason</label>
+        <input type="text" id="reason" name="reason" placeholder="Booking, press, collab...">
+      </div>
+      <div class="form-row">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-mark">Brandon Merritt</div>
+  <div class="footer-links">
+    <a href="https://open.spotify.com/artist/4Yl97Nqa8KwCXG2EHXPrlX" target="_blank" rel="noopener">Spotify</a>
+    <a href="https://music.apple.com/us/artist/brandon-merritt/1894566115" target="_blank" rel="noopener">Apple Music</a>
+    <a href="https://music.youtube.com/@iambrandonmerritt" target="_blank" rel="noopener">YouTube Music</a>
+    <a href="mailto:iambrandonmerritt@gmail.com">Email</a>
+  </div>
+  <div class="footer-meta">© 2026 Brandon Merritt · <span data-hit-counter>—</span> visits</div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
