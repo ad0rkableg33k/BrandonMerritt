@@ -3,7 +3,7 @@
    Design tokens live at the top. Everything else derives from them.
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 :root{
   /* ---- brand colors ---- */
@@ -17,7 +17,7 @@
   --line-soft: rgba(245,245,243,0.06);
 
   /* ---- type ---- */
-  --display: 'Fraunces', Georgia, serif;
+  --display: 'Space Grotesk', 'Inter', sans-serif;
   --body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --mono:    'IBM Plex Mono', monospace;
 
@@ -98,7 +98,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .site-nav.scrolled{ background:rgba(11,11,11,0.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--line-soft); }
 .nav-mark{
   font-family:var(--display);
-  font-style:italic;
+  font-weight:600;
   font-size:19px;
   letter-spacing:0.02em;
 }
@@ -198,8 +198,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .hero-content{ position:relative; z-index:2; padding:0 var(--edge) clamp(56px,9vw,110px); width:100%; }
 .hero-title{
   font-family:var(--display);
-  font-style:italic;
-  font-weight:400;
+  font-weight:600;
   font-size:clamp(40px, 8vw, 96px);
   line-height:1.02;
   letter-spacing:-0.01em;
@@ -235,7 +234,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 section{ padding:var(--section-pad) var(--edge); position:relative; }
 .section-head{ max-width:640px; margin-bottom:clamp(40px,6vw,72px); }
 .section-head h2{
-  font-family:var(--display); font-style:italic; font-weight:400;
+  font-family:var(--display); font-weight:600;
   font-size:clamp(28px,4vw,48px); line-height:1.15;
 }
 .divider{ border:none; border-top:1px solid var(--line); }
@@ -258,7 +257,7 @@ footer{
   display:flex; flex-wrap:wrap; gap:24px;
   align-items:center; justify-content:space-between;
 }
-.footer-mark{ font-family:var(--display); font-style:italic; font-size:18px; }
+.footer-mark{ font-family:var(--display); font-weight:600; font-size:18px; }
 .footer-links{ display:flex; gap:28px; flex-wrap:wrap; }
 .footer-links a{ font-family:var(--mono); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--silver); }
 .footer-links a:hover{ color:var(--gold); }
@@ -269,7 +268,7 @@ footer{
    ========================================================================== */
 .page-header{ padding:calc(var(--section-pad) + 40px) var(--edge) 40px; }
 .page-header h1{
-  font-family:var(--display); font-style:italic; font-weight:400;
+  font-family:var(--display); font-weight:600;
   font-size:clamp(36px,6vw,64px);
 }
 .page-header p{ color:var(--silver); max-width:52ch; margin-top:18px; }
@@ -300,9 +299,9 @@ footer{
 }
 .act:last-child{ border-bottom:1px solid var(--line); }
 .act-num{ font-family:var(--mono); font-size:13px; color:var(--gold); letter-spacing:0.1em; }
-.act-num span{ display:block; font-family:var(--display); font-style:italic; font-size:44px; color:var(--white); margin-top:6px; }
+.act-num span{ display:block; font-family:var(--display); font-weight:700; font-size:44px; color:var(--white); margin-top:6px; }
 .act.locked .act-num span, .act.locked h3{ opacity:0.3; }
-.act h3{ font-family:var(--display); font-style:italic; font-weight:400; font-size:clamp(24px,3vw,34px); margin-bottom:12px; }
+.act h3{ font-family:var(--display); font-weight:600; font-size:clamp(24px,3vw,34px); margin-bottom:12px; }
 .act .status{ font-family:var(--mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; display:inline-block; }
 .act.locked .status{ color:var(--silver); opacity:0.6; }
 .act p{ color:var(--silver); max-width:58ch; }
