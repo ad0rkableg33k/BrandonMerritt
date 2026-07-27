@@ -40,20 +40,22 @@ document.addEventListener('DOMContentLoaded', () => {
     revealEls.forEach(el => el.classList.add('in'));
   }
 
-  // ---- hero video: reinforce autoplay on mobile browsers ----
+  // ---- autoplay videos: reinforce on mobile browsers ----
   // Some mobile browsers (especially in-app browsers like Instagram/Messages
   // preview, or iOS in Low Power Mode) ignore the autoplay attribute even when
   // muted. This sets muted via JS (more reliable than the attribute alone),
   // tries to play immediately, and retries silently on the first tap/click
   // anywhere on the page if the initial attempt was blocked.
-  const heroVideo = document.querySelector('.hero-bg');
-  if (heroVideo) {
-    heroVideo.muted = true;
-    heroVideo.setAttribute('muted', '');
-    const tryPlay = () => heroVideo.play().catch(() => {});
-    tryPlay();
-    document.addEventListener('touchstart', tryPlay, { once:true, passive:true });
-    document.addEventListener('click', tryPlay, { once:true });
+  const autoplayVideos = document.querySelectorAll('video[autoplay]');
+  if (autoplayVideos.length) {
+    const tryPlayAll = () => autoplayVideos.forEach(v => {
+      v.muted = true;
+      v.setAttribute('muted', '');
+      v.play().catch(() => {});
+    });
+    tryPlayAll();
+    document.addEventListener('touchstart', tryPlayAll, { once:true, passive:true });
+    document.addEventListener('click', tryPlayAll, { once:true });
   }
 
   // ---- hit counter (matches convention used on the other sites) ----
