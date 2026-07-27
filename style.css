@@ -101,7 +101,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-weight:600;
   font-size:19px;
   letter-spacing:0.02em;
+  display:flex; align-items:center;
 }
+.nav-mark img{ height:34px; width:auto; display:block; }
 .nav-links{ display:flex; gap:clamp(16px,3vw,40px); }
 .nav-links a{
   font-family:var(--mono);
@@ -264,7 +266,8 @@ footer{
   display:flex; flex-wrap:wrap; gap:24px;
   align-items:center; justify-content:space-between;
 }
-.footer-mark{ font-family:var(--display); font-weight:600; font-size:18px; }
+.footer-mark{ display:flex; align-items:center; }
+.footer-mark img{ height:26px; width:auto; display:block; }
 .footer-links{ display:flex; gap:28px; flex-wrap:wrap; }
 .footer-links a{ font-family:var(--mono); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--silver); }
 .footer-links a:hover{ color:var(--gold); }
