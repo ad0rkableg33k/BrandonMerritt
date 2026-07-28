@@ -192,6 +192,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .placeholder.wide{ min-height:320px; }
 .placeholder.square{ aspect-ratio:1; min-height:0; }
 .placeholder.poster{ aspect-ratio:2/3; min-height:0; }
+.placeholder.tray{ aspect-ratio:3/4; min-height:0; }
+.placeholder.vinyl{ aspect-ratio:16/9; min-height:0; }
 
 /* Act 1 media — used consistently on Home, Music, and Trilogy so all three
    previews of Act 1 footage/artwork are the same size, regardless of the
