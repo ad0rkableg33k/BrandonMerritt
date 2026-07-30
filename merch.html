@@ -29,90 +29,84 @@
   <p>Shirts, vinyl, posters, stickers, and more — official store launching soon.</p>
 </div>
 
+<!-- SHIRTS — interactive 3D viewers. Drag each to rotate; shows the front
+     design mapped to one face and the shared back design to the opposite
+     face. Reusable viewer logic lives in script.js (initShirtViewers). -->
+<section style="padding-top:0;">
+  <div class="section-head reveal">
+    <div class="eyebrow">Shirts</div>
+    <h2>Drag to explore.</h2>
+  </div>
+  <div class="shirt-grid">
+
+    <div class="shirt-card reveal">
+      <div class="shirt-viewer" data-shirt-viewer data-front="images/shirt-1-front.jpg" data-back="images/shirt-back.jpg">
+        <span class="shirt-hint">Drag to rotate</span>
+      </div>
+      <div class="shirt-card-body"><h3>Design 01</h3><span class="meta">Coming soon</span></div>
+    </div>
+
+    <div class="shirt-card reveal">
+      <div class="shirt-viewer" data-shirt-viewer data-front="images/shirt-2-front.jpg" data-back="images/shirt-back.jpg">
+        <span class="shirt-hint">Drag to rotate</span>
+      </div>
+      <div class="shirt-card-body"><h3>Design 02</h3><span class="meta">Coming soon</span></div>
+    </div>
+
+    <div class="shirt-card reveal">
+      <div class="shirt-viewer" data-shirt-viewer data-front="images/shirt-3-front.jpg" data-back="images/shirt-back.jpg">
+        <span class="shirt-hint">Drag to rotate</span>
+      </div>
+      <div class="shirt-card-body"><h3>Design 03</h3><span class="meta">Coming soon</span></div>
+    </div>
+
+    <div class="shirt-card reveal">
+      <div class="shirt-viewer" data-shirt-viewer data-front="images/shirt-4-front.jpg" data-back="images/shirt-back.jpg">
+        <span class="shirt-hint">Drag to rotate</span>
+      </div>
+      <div class="shirt-card-body"><h3>Design 04</h3><span class="meta">Coming soon</span></div>
+    </div>
+
+    <div class="shirt-card reveal">
+      <div class="shirt-viewer" data-shirt-viewer data-front="images/shirt-5-front.jpg" data-back="images/shirt-back.jpg">
+        <span class="shirt-hint">Drag to rotate</span>
+      </div>
+      <div class="shirt-card-body"><h3>Design 05</h3><span class="meta">Coming soon</span></div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider" style="margin:0 var(--edge);">
+
 <!-- MERCH GRID
      Swap-in note: once the store is built, replace each .placeholder.square
      with <img src="images/merch-shirt.jpg" alt="..."> (name per item) and
      link the .card to a real product/checkout page. Duplicate per item. -->
-<section style="padding-top:0;">
+<section>
   <div class="grid grid-3">
 
     <div class="card reveal">
-      <div class="placeholder square"><img src="images/merch-1.png" alt="Brandon Merritt — Third Eye tee, purple galaxy design"></div>
-      <div><h3>The Chronicles: Act 1 PTSD Tee</h3><span class="meta">Third Eye — Purple</span></div>
+      <div class="placeholder square"><div class="placeholder-label"><div class="ring"></div>Product photo — coming soon</div></div>
+      <div><h3>Vinyl</h3><span class="meta">Coming soon</span></div>
     </div>
 
     <div class="card reveal">
-      <div class="placeholder square"><img src="images/merch-2.png" alt="Brandon Merritt — Crowned tee, teal smoke design"></div>
-      <div><h3>The Chronicles: Act 1 PTSD Tee</h3><span class="meta">Crowned — Teal</span></div>
+      <div class="placeholder square"><div class="placeholder-label"><div class="ring"></div>Product photo — coming soon</div></div>
+      <div><h3>Posters</h3><span class="meta">Coming soon</span></div>
     </div>
 
     <div class="card reveal">
-      <div class="placeholder square"><img src="images/merch-3.png" alt="Brandon Merritt — Third Eye tee, gold and floral design"></div>
-      <div><h3>The Chronicles: Act 1 PTSD Tee</h3><span class="meta">Third Eye — Gold</span></div>
+      <div class="placeholder square"><div class="placeholder-label"><div class="ring"></div>Product photo — coming soon</div></div>
+      <div><h3>Stickers</h3><span class="meta">Coming soon</span></div>
     </div>
 
     <div class="card reveal">
-      <div class="placeholder square"><img src="images/merch-4.png" alt="Brandon Merritt — Cosmic Heads tee design"></div>
-      <div><h3>The Chronicles: Act 1 PTSD Tee</h3><span class="meta">Cosmic Heads</span></div>
-    </div>
-
-    <div class="card reveal">
-      <div class="placeholder square"><img src="images/merch-5.png" alt="Brandon Merritt — Cyber Eclipse tee design"></div>
-      <div><h3>The Chronicles: Act 1 PTSD Tee</h3><span class="meta">Cyber Eclipse</span></div>
-    </div>
-
-    <div class="card reveal">
-      <div class="placeholder square"><img src="images/merch-6.png" alt="Brandon Merritt — Dual Face Cyber tee design"></div>
-      <div><h3>The Chronicles: Act 1 PTSD Tee</h3><span class="meta">Dual Face</span></div>
-    </div>
-
-    <div class="card reveal">
-      <div class="placeholder poster"><img src="images/poster-1.png" alt="Brandon Merritt poster — Crowned, teal nebula design"></div>
-      <div><h3>The Chronicles: Act 1 PTSD Poster</h3><span class="meta">Crowned — Teal</span></div>
-    </div>
-
-    <div class="card reveal">
-      <div class="placeholder poster"><img src="images/poster-2.png" alt="Brandon Merritt poster — Multi-Face cybernetic design"></div>
-      <div><h3>The Chronicles: Act 1 PTSD Poster</h3><span class="meta">Multi-Face</span></div>
-    </div>
-
-    <div class="card reveal">
-      <div class="placeholder poster"><img src="images/poster-3.png" alt="Brandon Merritt poster — Eye Orb, purple nebula design"></div>
-      <div><h3>The Chronicles: Act 1 PTSD Poster</h3><span class="meta">Eye Orb — Purple</span></div>
-    </div>
-
-    <div class="card reveal">
-      <div class="placeholder square"><img src="images/sticker-1.png" alt="Brandon Merritt sticker — cyborg profile, red circuitry"></div>
-      <div><h3>The Chronicles: Act 1 PTSD Sticker</h3><span class="meta">Cyborg Profile</span></div>
-    </div>
-
-    <div class="card reveal">
-      <div class="placeholder square"><img src="images/sticker-2.png" alt="Brandon Merritt sticker — warrior with eye orb"></div>
-      <div><h3>The Chronicles: Act 1 PTSD Sticker</h3><span class="meta">Eye Orb Warrior</span></div>
-    </div>
-
-    <div class="card reveal">
-      <div class="placeholder square"><img src="images/sticker-3.png" alt="Brandon Merritt sticker — cosmic cyborg with solar flare"></div>
-      <div><h3>The Chronicles: Act 1 PTSD Sticker</h3><span class="meta">Cosmic Cyborg</span></div>
-    </div>
-
-    <div class="card reveal">
-      <div class="placeholder tray"><img src="images/rolling-tray-1.png" alt="Brandon Merritt rolling tray — Crowned design"></div>
-      <div><h3>The Chronicles: Act 1 PTSD Rolling Tray</h3><span class="meta">Crowned</span></div>
-    </div>
-
-    <div class="card reveal">
-      <div class="placeholder tray"><img src="images/rolling-tray-2.png" alt="Brandon Merritt rolling tray — Eye Orb design"></div>
-      <div><h3>The Chronicles: Act 1 PTSD Rolling Tray</h3><span class="meta">Eye Orb</span></div>
-    </div>
-
-    <div class="card reveal">
-      <div class="placeholder vinyl"><img src="images/vinyl.png" alt="Brandon Merritt vinyl record — Eye Orb design"></div>
-      <div><h3>The Chronicles: Act 1 PTSD Vinyl</h3><span class="meta">Eye Orb</span></div>
+      <div class="placeholder square"><div class="placeholder-label"><div class="ring"></div>Product photo — coming soon</div></div>
+      <div><h3>Rolling Trays</h3><span class="meta">Coming soon</span></div>
     </div>
 
   </div>
-
 </section>
 
 <section style="text-align:center;">
@@ -136,6 +130,7 @@
   <div class="footer-meta">© 2026 Brandon Merritt · <span data-hit-counter>—</span> visits</div>
 </footer>
 
+<script src="three.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

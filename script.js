@@ -67,3 +67,85 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch(() => { counterEl.textContent = '—'; });
   }
 });
+
+// ---- rotating 3D shirt viewers (Merch page) ----
+// Each [data-shirt-viewer] element gets its own small Three.js scene, using
+// data-front / data-back attributes for the textures. Drag to spin, gentle
+// idle rotation when not being dragged. Requires three.min.js to be loaded
+// on the page before this script runs (see merch.html).
+function initShirtViewers() {
+  const containers = document.querySelectorAll('[data-shirt-viewer]');
+  if (!containers.length || typeof THREE === 'undefined') return;
+
+  containers.forEach((el) => {
+    const front = el.getAttribute('data-front');
+    const back = el.getAttribute('data-back');
+    const width = el.clientWidth;
+    const height = el.clientHeight;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 100);
+    camera.position.set(0, 0, 6);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    el.appendChild(renderer.domElement);
+
+    const key = new THREE.DirectionalLight(0xffffff, 1.1);
+    key.position.set(2, 3, 4);
+    scene.add(key);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+
+    const loader = new THREE.TextureLoader();
+    const frontTex = loader.load(front);
+    const backTex = loader.load(back);
+    [frontTex, backTex].forEach((t) => { t.colorSpace = THREE.SRGBColorSpace; });
+
+    const fabricColor = 0x1a1a1a;
+    const materials = [
+      new THREE.MeshStandardMaterial({ color: fabricColor, roughness: 0.9 }),
+      new THREE.MeshStandardMaterial({ color: fabricColor, roughness: 0.9 }),
+      new THREE.MeshStandardMaterial({ color: fabricColor, roughness: 0.9 }),
+      new THREE.MeshStandardMaterial({ color: fabricColor, roughness: 0.9 }),
+      new THREE.MeshStandardMaterial({ map: frontTex, roughness: 0.85 }),
+      new THREE.MeshStandardMaterial({ map: backTex, roughness: 0.85 }),
+    ];
+
+    const geo = new THREE.BoxGeometry(2.6, 3.0, 0.18);
+    const shirt = new THREE.Mesh(geo, materials);
+    scene.add(shirt);
+
+    let dragging = false, lastX = 0, lastY = 0;
+    let rotY = 0.3, rotX = 0, velY = 0.004;
+
+    function pointerDown(x, y) { dragging = true; lastX = x; lastY = y; velY = 0; }
+    function pointerMove(x, y) {
+      if (!dragging) return;
+      const dx = x - lastX, dy = y - lastY;
+      rotY += dx * 0.008;
+      rotX += dy * 0.008;
+      rotX = Math.max(-0.6, Math.min(0.6, rotX));
+      lastX = x; lastY = y;
+    }
+    function pointerUp() { dragging = false; velY = 0.004; }
+
+    renderer.domElement.addEventListener('mousedown', (e) => pointerDown(e.clientX, e.clientY));
+    window.addEventListener('mousemove', (e) => pointerMove(e.clientX, e.clientY));
+    window.addEventListener('mouseup', pointerUp);
+    renderer.domElement.addEventListener('touchstart', (e) => { const t = e.touches[0]; pointerDown(t.clientX, t.clientY); }, { passive: true });
+    window.addEventListener('touchmove', (e) => { if (!dragging) return; const t = e.touches[0]; pointerMove(t.clientX, t.clientY); }, { passive: true });
+    window.addEventListener('touchend', pointerUp);
+
+    function animate() {
+      requestAnimationFrame(animate);
+      if (!dragging) rotY += velY;
+      shirt.rotation.y = rotY;
+      shirt.rotation.x = rotX;
+      renderer.render(scene, camera);
+    }
+    animate();
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initShirtViewers);

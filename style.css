@@ -183,17 +183,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .placeholder-label .ring::before{ top:50%; left:50%; width:1px; height:14px; transform:translate(-50%,-100%); }
 .placeholder-label .ring::after{ top:50%; left:50%; width:14px; height:1px; transform:translate(-100%,-50%); }
 
-.placeholder:has(img), .placeholder:has(video){ background:var(--black); }
-.placeholder:has(img)::before, .placeholder:has(video)::before{ display:none; }
-.placeholder img, .placeholder video{ position:relative; z-index:1; width:100%; height:100%; object-fit:cover; }
-
 .placeholder.hero-media{ min-height:100vh; }
 .placeholder.tall{ min-height:420px; }
 .placeholder.wide{ min-height:320px; }
 .placeholder.square{ aspect-ratio:1; min-height:0; }
-.placeholder.poster{ aspect-ratio:2/3; min-height:0; }
-.placeholder.tray{ aspect-ratio:3/4; min-height:0; }
-.placeholder.vinyl{ aspect-ratio:16/9; min-height:0; }
 
 /* Act 1 media — used consistently on Home, Music, and Trilogy so all three
    previews of Act 1 footage/artwork are the same size, regardless of the
@@ -213,17 +206,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .platform-link-large:hover{ border-color:var(--gold); transform:translateY(-2px); }
 .platform-link-large img{ width:100%; height:auto; display:block; }
-
-/* small/medium horizontal row variant (Home page "Available everywhere") */
-.platform-links-row{ display:flex; gap:16px; max-width:560px; }
-.platform-link-row{
-  flex:1 1 0;
-  display:flex; align-items:center; justify-content:center;
-  border:1px solid var(--line); padding:16px 20px; background:var(--charcoal);
-  transition:border-color 0.3s ease, transform 0.3s ease;
-}
-.platform-link-row:hover{ border-color:var(--gold); transform:translateY(-2px); }
-.platform-link-row img{ width:100%; height:auto; display:block; }
 
 /* ==========================================================================
    HERO
@@ -397,3 +379,18 @@ footer{
 /* misc */
 .mono-tag{ font-family:var(--mono); font-size:11px; letter-spacing:0.1em; color:var(--silver); }
 .text-gold{ color:var(--gold); }
+
+/* rotating 3D shirt viewers — Merch page */
+.shirt-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(20px,3vw,32px); }
+@media (max-width:900px){ .shirt-grid{ grid-template-columns:1fr; } }
+.shirt-card{ border:1px solid var(--line); }
+.shirt-viewer{ width:100%; aspect-ratio:4/5; background:#0B0B0B; position:relative; }
+.shirt-viewer canvas{ display:block; width:100% !important; height:100% !important; cursor:grab; }
+.shirt-viewer:active canvas{ cursor:grabbing; }
+.shirt-hint{
+  position:absolute; bottom:10px; left:50%; transform:translateX(-50%);
+  font-family:var(--mono); font-size:10px; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--silver); opacity:0.6; pointer-events:none;
+}
+.shirt-card-body{ padding:18px 20px; }
+.shirt-card-body h3{ font-family:var(--display); font-weight:600; font-size:17px; margin-bottom:6px; }
