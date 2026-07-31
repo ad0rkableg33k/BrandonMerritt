@@ -207,6 +207,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .platform-link-large:hover{ border-color:var(--gold); transform:translateY(-2px); }
 .platform-link-large img{ width:100%; height:auto; display:block; }
 
+.platform-links-row{ display:flex; flex-wrap:wrap; align-items:center; gap:24px; }
+.platform-link-row{
+  display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--line); padding:16px 24px; background:var(--charcoal);
+  transition:border-color 0.3s ease, transform 0.3s ease;
+}
+.platform-link-row:hover{ border-color:var(--gold); transform:translateY(-2px); }
+.platform-link-row img{ height:32px; width:auto; display:block; }
+
 /* ==========================================================================
    HERO
    ========================================================================== */
