@@ -395,33 +395,34 @@ footer{
 .shirt-card-body{ padding:18px 20px; }
 .shirt-card-body h3{ font-family:var(--display); font-weight:600; font-size:17px; margin-bottom:6px; }
 
-/* ambient animated background — Music page (palette pulled from the
-   crowned-figure artwork: deep teal-navy base, teal glow, warm ember accent) */
+/* ambient background — Music page. Real nebula photo with a slow Ken Burns
+   pan/zoom for continuous subtle motion, dark overlay for legibility, and a
+   light star-twinkle canvas layered on top for extra sparkle. */
 .ambient-bg{
   position:fixed; inset:0; z-index:-1; overflow:hidden;
   background:#03090b;
 }
-.ambient-blob{
-  position:absolute; border-radius:50%; filter:blur(90px); opacity:0.5; will-change:transform;
+.ambient-bg-photo{
+  position:absolute; inset:-5%; width:110%; height:110%;
+  background-image:url('images/music-background.jpg');
+  background-size:cover; background-position:center;
+  animation:ambient-kenburns 50s ease-in-out infinite alternate;
+  will-change:transform;
 }
-.ambient-blob.teal{
-  width:60vw; height:60vw; top:-15%; left:-12%;
-  background:radial-gradient(circle, #1f9aa3, transparent 70%);
-  animation:ambient-drift-a 28s ease-in-out infinite alternate;
+.ambient-bg::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(3,9,11,0.55) 0%, rgba(3,9,11,0.82) 100%);
 }
-.ambient-blob.ember{
-  width:46vw; height:46vw; bottom:-16%; right:-10%;
-  background:radial-gradient(circle, #d98a5f, transparent 70%);
-  animation:ambient-drift-b 34s ease-in-out infinite alternate;
+@keyframes ambient-kenburns{
+  0%{ transform:translate(0,0) scale(1); }
+  100%{ transform:translate(-3%,-2%) scale(1.12); }
 }
-.ambient-blob.navy{
-  width:70vw; height:70vw; top:18%; right:8%;
-  background:radial-gradient(circle, #123a42, transparent 72%);
-  animation:ambient-drift-c 42s ease-in-out infinite alternate;
-}
-@keyframes ambient-drift-a{ 0%{ transform:translate(0,0) scale(1); } 100%{ transform:translate(8%,6%) scale(1.15); } }
-@keyframes ambient-drift-b{ 0%{ transform:translate(0,0) scale(1); } 100%{ transform:translate(-7%,-9%) scale(1.1); } }
-@keyframes ambient-drift-c{ 0%{ transform:translate(0,0) scale(1); } 100%{ transform:translate(-5%,5%) scale(0.95); } }
-@media (prefers-reduced-motion: reduce){ .ambient-blob{ animation:none; } }
+@media (prefers-reduced-motion: reduce){ .ambient-bg-photo{ animation:none; } }
 
-#ambient-stars{ position:absolute; inset:0; width:100%; height:100%; }
+#ambient-stars{ position:absolute; inset:0; width:100%; height:100%; opacity:0.6; }
+
+/* disintegrating character canvas — drifts independently of the background,
+   with particles continuously breaking off the edges and fading (see
+   initDisintegrationEffect in script.js) */
+.disintegrate-canvas{ display:block; width:100%; height:auto; }
+.disintegrate-wrap{ width:100%; max-width:360px; justify-self:center; }

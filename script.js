@@ -188,3 +188,149 @@ function initAmbientStars() {
 }
 
 document.addEventListener('DOMContentLoaded', initAmbientStars);
+
+// ---- disintegration effect (Music page character canvas) ----
+// Draws the source image, then runs a repeating "erode at the edges, shed
+// glowing particles, reform" cycle, plus a slow independent drift so it
+// floats at a different rhythm than the background. Degrades gracefully to
+// a still image under prefers-reduced-motion.
+function initDisintegrationEffect() {
+  const canvases = document.querySelectorAll('[data-disintegrate]');
+  if (!canvases.length) return;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  canvases.forEach((canvas) => {
+    const src = canvas.getAttribute('data-src');
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      const W = img.naturalWidth, H = img.naturalHeight;
+      canvas.width = W;
+      canvas.height = H;
+      const ctx = canvas.getContext('2d');
+
+      if (reduced) {
+        ctx.drawImage(img, 0, 0, W, H);
+        return;
+      }
+
+      // sample source pixels once to find edge points (opaque pixel with a
+      // nearby transparent neighbor) and their color, as particle/erosion seeds
+      const sampleCanvas = document.createElement('canvas');
+      sampleCanvas.width = W;
+      sampleCanvas.height = H;
+      const sctx = sampleCanvas.getContext('2d');
+      sctx.drawImage(img, 0, 0, W, H);
+      let data;
+      try {
+        data = sctx.getImageData(0, 0, W, H).data;
+      } catch (e) {
+        ctx.drawImage(img, 0, 0, W, H);
+        return; // canvas tainted (e.g. file:// without a server) — just show it static
+      }
+
+      const step = 4;
+      const edgePoints = [];
+      const alphaAt = (x, y) => {
+        if (x < 0 || y < 0 || x >= W || y >= H) return 0;
+        return data[(y * W + x) * 4 + 3];
+      };
+      for (let y = 0; y < H; y += step) {
+        for (let x = 0; x < W; x += step) {
+          const a = alphaAt(x, y);
+          if (a < 140) continue;
+          if (alphaAt(x + step * 2, y) < 40 || alphaAt(x - step * 2, y) < 40 ||
+              alphaAt(x, y + step * 2) < 40 || alphaAt(x, y - step * 2) < 40) {
+            const i = (y * W + x) * 4;
+            edgePoints.push({ x, y, r: data[i], g: data[i + 1], b: data[i + 2] });
+          }
+        }
+      }
+
+      const CYCLE = 7000;
+      const driftAmpX = 7, driftAmpY = 5;
+      const driftPeriodX = 6400, driftPeriodY = 8200;
+
+      const MAX_PARTICLES = 170;
+      const particles = [];
+      function spawnParticle(t0) {
+        if (!edgePoints.length) return;
+        const p = edgePoints[(Math.random() * edgePoints.length) | 0];
+        particles.push({
+          x: p.x, y: p.y,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: -0.3 - Math.random() * 0.6,
+          size: 1.6 + Math.random() * 3.6,
+          color: `rgb(${p.r},${p.g},${p.b})`,
+          born: t0,
+          life: 900 + Math.random() * 1400,
+        });
+      }
+
+      function frame(t) {
+        const phase = (t % CYCLE) / CYCLE;
+        const erosion = Math.sin(phase * Math.PI); // 0 -> 1 -> 0 across the cycle
+
+        const offsetX = Math.sin(t / driftPeriodX) * driftAmpX;
+        const offsetY = Math.cos(t / driftPeriodY) * driftAmpY;
+
+        ctx.clearRect(0, 0, W, H);
+        ctx.save();
+        ctx.translate(offsetX, offsetY);
+        ctx.drawImage(img, 0, 0, W, H);
+
+        // erode: punch soft holes near a subset of edge points, scaled by erosion
+        if (erosion > 0.08 && edgePoints.length) {
+          ctx.globalCompositeOperation = 'destination-out';
+          const holeCount = Math.floor(erosion * 46);
+          for (let k = 0; k < holeCount; k++) {
+            const p = edgePoints[(Math.random() * edgePoints.length) | 0];
+            const r = 3 + erosion * 10 * Math.random();
+            const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r);
+            grad.addColorStop(0, 'rgba(0,0,0,0.9)');
+            grad.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.globalCompositeOperation = 'source-over';
+        }
+        ctx.restore();
+
+        // spawn new particles proportional to erosion intensity
+        if (erosion > 0.15 && particles.length < MAX_PARTICLES) {
+          const toSpawn = Math.ceil(erosion * 4);
+          for (let k = 0; k < toSpawn; k++) spawnParticle(t);
+        }
+
+        // update + draw particles (in the same offset space as the figure)
+        ctx.save();
+        ctx.translate(offsetX, offsetY);
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          const age = t - p.born;
+          if (age > p.life) { particles.splice(i, 1); continue; }
+          const lifeFrac = age / p.life;
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy -= 0.002; // gentle upward accel, ember-like
+          const alpha = 1 - lifeFrac;
+          ctx.globalAlpha = Math.max(alpha, 0);
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+        ctx.restore();
+
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    };
+    img.src = src;
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initDisintegrationEffect);

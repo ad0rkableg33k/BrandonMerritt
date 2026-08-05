@@ -9,14 +9,12 @@
 </head>
 <body>
 
-<!-- Ambient animated background — palette pulled from the crowned-figure
-     artwork (deep teal-navy, teal glow, warm ember). Pure CSS blob drift +
-     lightweight canvas star twinkle, see .ambient-bg / initAmbientStars in
-     style.css / script.js. -->
+<!-- Ambient animated background — real nebula photo with a slow Ken Burns
+     pan/zoom, dark overlay for legibility, and a light star-twinkle canvas
+     on top for extra sparkle. See .ambient-bg in style.css / initAmbientStars
+     in script.js. -->
 <div class="ambient-bg" aria-hidden="true">
-  <div class="ambient-blob teal"></div>
-  <div class="ambient-blob ember"></div>
-  <div class="ambient-blob navy"></div>
+  <div class="ambient-bg-photo"></div>
   <canvas id="ambient-stars"></canvas>
 </div>
 
@@ -53,7 +51,9 @@
         <img src="images/logo-youtube.png" alt="Listen on YouTube Music">
       </a>
     </div>
-    <img src="images/music-visual.jpg" alt="Brandon Merritt" class="reveal" style="width:100%; max-width:360px; height:auto; display:block; border:1px solid var(--line); justify-self:center;">
+    <div class="disintegrate-wrap reveal">
+      <canvas class="disintegrate-canvas" data-disintegrate data-src="images/music-visual.jpg" aria-label="Brandon Merritt"></canvas>
+    </div>
   </div>
 </section>
 
