@@ -149,3 +149,42 @@ function initShirtViewers() {
 }
 
 document.addEventListener('DOMContentLoaded', initShirtViewers);
+
+// ---- ambient star twinkle canvas (Music page background) ----
+function initAmbientStars() {
+  const canvas = document.getElementById('ambient-stars');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function resize() {
+    canvas.width = canvas.clientWidth * window.devicePixelRatio;
+    canvas.height = canvas.clientHeight * window.devicePixelRatio;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const STAR_COUNT = 70;
+  const stars = Array.from({ length: STAR_COUNT }, () => ({
+    x: Math.random(),
+    y: Math.random(),
+    r: Math.random() * 1.4 + 0.4,
+    phase: Math.random() * Math.PI * 2,
+    speed: 0.4 + Math.random() * 0.6,
+  }));
+
+  function draw(t) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach((s) => {
+      const twinkle = reduced ? 0.7 : 0.5 + 0.5 * Math.sin(t * 0.001 * s.speed + s.phase);
+      ctx.beginPath();
+      ctx.arc(s.x * canvas.width, s.y * canvas.height, s.r * window.devicePixelRatio, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(245,245,243,${(0.15 + 0.55 * twinkle).toFixed(2)})`;
+      ctx.fill();
+    });
+    if (!reduced) requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+}
+
+document.addEventListener('DOMContentLoaded', initAmbientStars);

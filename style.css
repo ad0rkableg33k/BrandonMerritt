@@ -207,15 +207,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .platform-link-large:hover{ border-color:var(--gold); transform:translateY(-2px); }
 .platform-link-large img{ width:100%; height:auto; display:block; }
 
-.platform-links-row{ display:flex; flex-wrap:wrap; align-items:center; gap:24px; }
-.platform-link-row{
-  display:flex; align-items:center; justify-content:center;
-  border:1px solid var(--line); padding:16px 24px; background:var(--charcoal);
-  transition:border-color 0.3s ease, transform 0.3s ease;
-}
-.platform-link-row:hover{ border-color:var(--gold); transform:translateY(-2px); }
-.platform-link-row img{ height:32px; width:auto; display:block; }
-
 /* ==========================================================================
    HERO
    ========================================================================== */
@@ -403,3 +394,34 @@ footer{
 }
 .shirt-card-body{ padding:18px 20px; }
 .shirt-card-body h3{ font-family:var(--display); font-weight:600; font-size:17px; margin-bottom:6px; }
+
+/* ambient animated background — Music page (palette pulled from the
+   crowned-figure artwork: deep teal-navy base, teal glow, warm ember accent) */
+.ambient-bg{
+  position:fixed; inset:0; z-index:-1; overflow:hidden;
+  background:#03090b;
+}
+.ambient-blob{
+  position:absolute; border-radius:50%; filter:blur(90px); opacity:0.5; will-change:transform;
+}
+.ambient-blob.teal{
+  width:60vw; height:60vw; top:-15%; left:-12%;
+  background:radial-gradient(circle, #1f9aa3, transparent 70%);
+  animation:ambient-drift-a 28s ease-in-out infinite alternate;
+}
+.ambient-blob.ember{
+  width:46vw; height:46vw; bottom:-16%; right:-10%;
+  background:radial-gradient(circle, #d98a5f, transparent 70%);
+  animation:ambient-drift-b 34s ease-in-out infinite alternate;
+}
+.ambient-blob.navy{
+  width:70vw; height:70vw; top:18%; right:8%;
+  background:radial-gradient(circle, #123a42, transparent 72%);
+  animation:ambient-drift-c 42s ease-in-out infinite alternate;
+}
+@keyframes ambient-drift-a{ 0%{ transform:translate(0,0) scale(1); } 100%{ transform:translate(8%,6%) scale(1.15); } }
+@keyframes ambient-drift-b{ 0%{ transform:translate(0,0) scale(1); } 100%{ transform:translate(-7%,-9%) scale(1.1); } }
+@keyframes ambient-drift-c{ 0%{ transform:translate(0,0) scale(1); } 100%{ transform:translate(-5%,5%) scale(0.95); } }
+@media (prefers-reduced-motion: reduce){ .ambient-blob{ animation:none; } }
+
+#ambient-stars{ position:absolute; inset:0; width:100%; height:100%; }

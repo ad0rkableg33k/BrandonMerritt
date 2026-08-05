@@ -9,6 +9,17 @@
 </head>
 <body>
 
+<!-- Ambient animated background — palette pulled from the crowned-figure
+     artwork (deep teal-navy, teal glow, warm ember). Pure CSS blob drift +
+     lightweight canvas star twinkle, see .ambient-bg / initAmbientStars in
+     style.css / script.js. -->
+<div class="ambient-bg" aria-hidden="true">
+  <div class="ambient-blob teal"></div>
+  <div class="ambient-blob ember"></div>
+  <div class="ambient-blob navy"></div>
+  <canvas id="ambient-stars"></canvas>
+</div>
+
 <nav class="site-nav">
   <a href="index.html" class="nav-mark"><img src="images/logo-header.png" alt="Brandon Merritt"></a>
   <button class="nav-toggle" aria-label="Toggle menu">Menu</button>
@@ -26,8 +37,7 @@
 <div class="page-header">
   <div class="eyebrow">Discography</div>
   <h1>Music</h1>
-  <p>Every release, in one place. </p>
-<p>Stream the catalog on the platform you already live on.</p>
+  <p>Every release, in one place. Stream the catalog on the platform you already live on.</p>
 </div>
 
 <section style="padding-top:0;">
